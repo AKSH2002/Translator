@@ -3,7 +3,7 @@ from tkinter import ttk,messagebox
 import googletrans
 from googletrans import Translator
 from googletrans import constants
-
+from translate import Translator
 
 # Set a custom user agent
 constants.DEFAULT_USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
@@ -26,22 +26,36 @@ def label_change():
 
 
 #Translate fuction
+#This function is using the translate lib and it is working fine
 def translate_now():
     try:
         text_ = text1.get(1.0, END)
-        t1 = Translator()
-        trans_text = t1.translate(text_, dest=combo2.get(), src=combo1.get())
-        trans_text = trans_text.text
+        t1 = Translator(to_lang=combo2.get(), from_lang=combo1.get())
+        trans_text = t1.translate(text_)
 
         text2.delete(1.0, END)
         text2.insert(END, trans_text)
     except Exception as e:
         messagebox.showerror("Error", str(e))
 
+#This function is using the googletrans lib but not working properly sometimes
+# def translate_now():
+#     try:
+#         text_ = text1.get(1.0, END)
+#         t1 = Translator()
+#         trans_text = t1.translate(text_, dest=combo2.get(), src=combo1.get())
+#         trans_text = trans_text.text
+
+#         text2.delete(1.0, END)
+#         text2.insert(END, trans_text)
+#     except Exception as e:
+#         messagebox.showerror("Error", str(e))
+
 
 
 
 #icon
+#some how icon is not working properly  
 # image_icon=PhotoImage(file="icon1.png")
 # root.iconphoto(False,image_icon)
 def load_icon():
@@ -107,7 +121,7 @@ text2.configure(yscrollcommand=scrollbar2.set)
 
 
 #Translate button
-translate=Button(root,text="Translate",font=("Roboto",15),activebackground="white",cursor="hand2",bd=1,width=10,height=2,bg="black",fg="white",command=translate_now)
+translate=Button(root,text="Translate",font=("Roboto",15),activebackground="white",cursor="hand2",bd=1,width=10,height=2,bg="green",fg="white",command=translate_now)
 translate.place(x=495,y=330)
 
 label_change()
