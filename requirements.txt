@@ -1,0 +1,3 @@
+tkinter
+googletrans==4.0.0-rc1
+translate==3.6.0
